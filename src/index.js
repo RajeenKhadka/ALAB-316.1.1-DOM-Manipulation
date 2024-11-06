@@ -2,7 +2,7 @@
 
 //======================Part-1===================================//
 var mainEl = document.getElementsByTagName("main");
-console.log(mainEl[0]);
+//console.log(mainEl[0]);
 
 mainEl[0].style.backgroundColor = 'var(--main-bg)';
 
@@ -81,59 +81,38 @@ var topMenuLinks = topMenuEl.querySelectorAll('a');
 topMenuEl.addEventListener('click', (evt) => {
     evt.preventDefault();
 
-    if(evt.target.localName !== 'a'){
+    if (evt.target.localName !== 'a') {
         return;
     }
 
     //removes the active class from the a tags on each time the loop runs
-    //
     topMenuLinks.forEach((element) => {
         element.classList.remove('active');
     });
 
     evt.target.classList.add('active');
 
-    console.log(evt.target.textContent);
+    //evt.target.textContent, the value for this is checked inside the menuLinks object array and assigned to linkArr.
+    const linkArr = menuLinks.find(link => link.text === evt.target.textContent);
 
-    
+    //console.log(linkArr);
 
-    
-    //console.log(topMenuLinks);
+    if (linkArr.subLinks) {
+        subMenuEl.style.top = '100%';
+        subMenuEl.innerHTML = '';
 
-    // if(evt.target.classList.contains('active')){
-    //     evt.target.classList.remove('active');
-    // }else{
-    //     evt.target.classList.add('active');
-    // }
+        //the clicked LinkArr
+        //forEach loop is used to iterate over the sublinks array object inside the selected LinkArr
+        linkArr.subLinks.forEach((element) => {
+            let links = document.createElement('a');
+            links.setAttribute('href', element.href);
+            links.textContent = element.text;
+            subMenuEl.appendChild(links);
+        })
+
+    } else {
+        subMenuEl.style.top = '0';
+        subMenuEl.innerHTML = '';
+    }
+
 });
-
-// function theAFunction(evt){
-
-//     topMenuLinks.target.localName === 'a'
-//     console.log(topMenuLinks.target.localName);
-    
-
-// }
-
-// topMenuLinks.addEventListener('click', (evt) => {
-//     evt.preventDefault();
-//     console.log("key pressed");
-// });
-
-// topMenuLinks.forEach((element) => {
-//     element.addEventListener('click', (evt) => {
-//         evt.preventDefault();
-//         //console.log(element);
-//         if(!element) return;
-//         //console.log(element);
-//         element.classList.add("active");
-
-//         console.log(element.classList);
-
-//         // if(element.classList.contains('active')){
-//         //     element.classList.toggle("active");
-//         // }
-//     });
-// });
-
-
