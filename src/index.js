@@ -92,6 +92,8 @@ topMenuEl.addEventListener('click', (evt) => {
 
     evt.target.classList.add('active');
 
+//======================DOM-Part2-Part5===================================//
+
     //evt.target.textContent, the value for this is checked inside the menuLinks object array and assigned to linkArr.
     const linkArr = menuLinks.find(link => link.text === evt.target.textContent);
 
@@ -103,16 +105,47 @@ topMenuEl.addEventListener('click', (evt) => {
 
         //the clicked LinkArr
         //forEach loop is used to iterate over the sublinks array object inside the selected LinkArr
-        linkArr.subLinks.forEach((element) => {
-            let links = document.createElement('a');
-            links.setAttribute('href', element.href);
-            links.textContent = element.text;
-            subMenuEl.appendChild(links);
-        })
+        buildSubmenu(linkArr.subLinks);
 
     } else {
         subMenuEl.style.top = '0';
         subMenuEl.innerHTML = '';
     }
 
+    console.log(linkArr.text);
+
+    if(linkArr.text === 'about'){
+        mainEl[0].innerHTML = "<h1>" + linkArr.text + "</h1>"
+    }
+
 });
+
+function buildSubmenu(subLinks) {
+
+    subLinks.forEach((element) => {
+        let links = document.createElement('a');
+        links.setAttribute('href', element.href);
+        links.textContent = element.text;
+        subMenuEl.appendChild(links);
+    })
+
+
+}
+
+subMenuEl.addEventListener('click', (evt) => {
+    evt.preventDefault();
+
+    if (evt.target.localName !== 'a') {
+        return;
+    }
+
+    subMenuEl.style.top = '0';
+
+    topMenuLinks.forEach((element) => {
+        element.classList.remove('active');
+    })
+
+    mainEl[0].innerHTML = "<h1>" + evt.target.textContent + "</h1>"
+
+    //console.log(evt.target.textContent);
+})
