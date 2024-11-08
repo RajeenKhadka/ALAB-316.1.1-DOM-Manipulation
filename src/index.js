@@ -112,7 +112,6 @@ topMenuEl.addEventListener('click', (evt) => {
         subMenuEl.innerHTML = '';
     }
 
-    console.log(linkArr.text);
 
     if(linkArr.text === 'about'){
         mainEl[0].innerHTML = "<h1>" + linkArr.text + "</h1>"
@@ -147,5 +146,4 @@ subMenuEl.addEventListener('click', (evt) => {
 
     mainEl[0].innerHTML = "<h1>" + evt.target.textContent + "</h1>"
 
-    //console.log(evt.target.textContent);
 })
